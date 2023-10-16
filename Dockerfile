@@ -20,10 +20,16 @@ RUN mkdir -p /etc/apt/keyrings && \
     npm --version
 
 # go
+ARG TARGETPLATFORM
 ENV PATH="${PATH}:/usr/local/go/bin"
-RUN wget https://dl.google.com/go/go1.20.4.linux-amd64.tar.gz && \
+RUN case ${TARGETPLATFORM} in \
+    linux/arm64)    wget -O go.tar.gz https://dl.google.com/go/go1.20.4.linux-arm64.tar.gz ;; \
+    linux/amd64)    wget -O go.tar.gz https://dl.google.com/go/go1.20.4.linux-amd64.tar.gz ;; \
+    *)              echo "Unsupported platform: ${TARGETPLATFORM}" && exit 1 ;; \
+    esac
+
     # -C to move to given directory
-    tar -C /usr/local/ -xzf go1.20.4.linux-amd64.tar.gz && \
+RUN tar -C /usr/local/ -xzf go.tar.gz && \
     go version
 
 # foundry
