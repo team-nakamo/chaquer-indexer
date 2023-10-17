@@ -1,7 +1,6 @@
 name: Build and Deploy Chaquer Indexer to Caprover
 
-on:
-  push: workflow_dispatch
+on: workflow_dispatch
 
 jobs:
   build_and_deploy:
