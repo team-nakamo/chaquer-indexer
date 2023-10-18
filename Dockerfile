@@ -57,6 +57,4 @@ FROM mud AS store-indexer
 WORKDIR /app/packages/store-indexer
 EXPOSE 3001
 
-FROM mud AS faucet
-WORKDIR /app/packages/faucet
-EXPOSE 3002
+ENTRYPOINT ["pnpm", "start:sqlite"]
